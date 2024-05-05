@@ -22,7 +22,8 @@ export const fetchJobs = () => {
       }
 
       const data = await response.json();
-      dispatch({ type: FETCH_JOBS_SUCCESS, payload: data });
+      const jobs = data.jdList; // Extracting job list from the response
+      dispatch({ type: FETCH_JOBS_SUCCESS, payload: jobs });
     } catch (error) {
       dispatch({ type: FETCH_JOBS_FAILURE, payload: error.message });
     }
