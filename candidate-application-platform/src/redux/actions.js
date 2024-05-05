@@ -1,6 +1,6 @@
 import { FETCH_JOBS_SUCCESS, FETCH_JOBS_FAILURE } from "./types";
 
-export const fetchJobs = () => {
+export const fetchJobs = (limit, offset) => {
   return async dispatch => {
     try {
       const response = await fetch(
@@ -11,8 +11,8 @@ export const fetchJobs = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            limit: 10,
-            offset: 0,
+            limit: limit,
+            offset: offset,
           }),
         }
       );
@@ -22,7 +22,7 @@ export const fetchJobs = () => {
       }
 
       const data = await response.json();
-      const jobs = data.jdList; // Extracting job list from the response
+      const jobs = data.jdList;
       dispatch({ type: FETCH_JOBS_SUCCESS, payload: jobs });
     } catch (error) {
       dispatch({ type: FETCH_JOBS_FAILURE, payload: error.message });

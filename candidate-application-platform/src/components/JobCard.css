@@ -1,0 +1,106 @@
+.job-card {
+  padding: 1.5vw;
+  border-radius: 1.5vw;
+  background-color: #f9f9f9;
+  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.1), 0 0 0.5vw rgba(0, 0, 0, 0.1); /* Added shadow */
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.job-card:hover {
+  transform: translateY(-0.3vw);
+}
+
+.company-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5vw; /* Adjust spacing */
+}
+
+.company-logo {
+  margin-right: 1vw;
+}
+
+.company-logo img {
+  width: 8vw;
+  height: 8vw;
+  border-radius: 50%;
+}
+
+.company-details {
+  flex: 1;
+}
+
+.company-details h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.2vw;
+}
+
+.company-details p {
+  margin: 0.3vw 0;
+}
+
+.company-details .job-role {
+  font-weight: bold;
+  font-size: 1vw;
+}
+
+.company-details .location {
+  color: #333;
+  font-size: 0.9vw;
+}
+
+.company-details .salary {
+  font-size: 0.8vw;
+  font-weight: bold;
+}
+
+.about-company {
+  margin-top: 1.5vw; /* Adjust spacing */
+}
+
+.about-company h4 {
+  margin-bottom: 0.5vw; /* Adjust spacing */
+  color: #333; /* Dark black color */
+  font-size: 1.1vw;
+  font-weight: bold; /* Make the heading bold */
+}
+
+.about-company p {
+  margin: 0.3vw 0;
+  font-size: 0.9vw;
+  color: #333; /* Dark black color */
+}
+
+.about-us {
+  font-size: 0.9vw;
+  color: #333; /* Dark black color */
+}
+
+.about-us::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1.5vw; /* Height of dimming lines effect */
+  background-image: linear-gradient(to bottom, rgba(249, 249, 249, 0), rgba(249, 249, 249, 1)); /* Dimming effect */
+}
+
+.view-job-btn {
+  margin-top: 1vw; /* Adjust spacing */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5vw 1vw;
+  border-radius: 0.5vw;
+  cursor: pointer;
+  font-size: 0.9vw;
+}
+
+.job-link {
+  color: #007bff;
+  font-size: 0.9vw;
+  text-decoration: underline;
+  cursor: pointer;
+}

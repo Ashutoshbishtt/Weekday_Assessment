@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchJobs } from "./redux/actions";
 import JobList from "./components/JobList";
 import Filters from "./components/Filters";
+import InfiniteScroll from "react-infinite-scroll-component";
+import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,10 +18,12 @@ const App = () => {
     techStack: [],
     minBasePay: [],
   });
+  const [page, setPage] = useState(1);
+  console.log(allJobs)
 
   useEffect(() => {
-    dispatch(fetchJobs());
-  }, [dispatch]);
+    dispatch(fetchJobs(10, (page - 1) * 10));
+  }, [dispatch, page]);
 
   useEffect(() => {
     applyFilters();
@@ -27,7 +31,6 @@ const App = () => {
 
   const applyFilters = () => {
     let filteredJobs = allJobs.filter(job => {
-      // Filter by job role
       if (
         filters.jobRole.length > 0 &&
         !filters.jobRole.some(
@@ -35,8 +38,6 @@ const App = () => {
         )
       )
         return false;
-
-      // Filter by number of employees
       if (
         filters.numEmployees.length > 0 &&
         !filters.numEmployees.includes(
@@ -44,13 +45,10 @@ const App = () => {
         )
       )
         return false;
-
-      // Filter by experience
       if (
         filters.experience.length > 0 &&
         !filters.experience.every(exp => {
           const [minExp, maxExp] = exp.split("-");
-
           return (
             (!minExp ||
               (job.minExp !== null && job.minExp >= parseInt(minExp))) &&
@@ -59,8 +57,6 @@ const App = () => {
         })
       )
         return false;
-
-      // Filter by remote location
       if (
         filters.remote.length > 0 &&
         !filters.remote.some(location =>
@@ -68,8 +64,6 @@ const App = () => {
         )
       )
         return false;
-
-      // Filter by tech stack
       if (
         filters.techStack.length > 0 &&
         !filters.techStack.every(stack =>
@@ -77,14 +71,11 @@ const App = () => {
         )
       )
         return false;
-
-      // Filter by minimum base pay
       if (filters.minBasePay.length > 0) {
         const minSalary = parseInt(filters.minBasePay[0].replace("L", ""));
         if (job.minJdSalary === null || job.minJdSalary < minSalary)
           return false;
       }
-
       return true;
     });
     setJobs(filteredJobs);
@@ -94,15 +85,28 @@ const App = () => {
     setFilters({ ...filters, [filterName]: value });
   };
 
+  const fetchMoreJobs = () => {
+    setPage(prevPage => prevPage + 1);
+  };
+
   return (
     <div className="app">
-      <h1>Candidate Application Platform</h1>
       <Filters
         filters={filters}
         setFilters={setFilters}
         handleFilterChange={handleFilterChange}
       />
-      <JobList jobs={jobs} />
+      <div className="job-list-container">
+        <InfiniteScroll
+          dataLength={jobs.length}
+          next={fetchMoreJobs}
+          hasMore={true}
+          loader={<h4>Loading...</h4>}
+          endMessage={<p>No more jobs</p>}
+        >
+          <JobList jobs={jobs} />
+        </InfiniteScroll>
+      </div>
     </div>
   );
 };
