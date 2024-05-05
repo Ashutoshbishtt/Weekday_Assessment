@@ -1,0 +1,12 @@
+.job-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.job-list .job-card {
+  width: calc(33.33% - 20px); /* Adjust the width as needed */
+  margin: 10px; /* Margin from top and bottom */
+  margin-right: 10px; /* Margin from right */
+  margin-left: 10px; /* Margin from left */
+  box-sizing: border-box;
+}

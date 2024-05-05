@@ -1,106 +1,140 @@
-.job-card {
-  padding: 1.5vw;
-  border-radius: 1.5vw;
-  background-color: #f9f9f9;
-  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.1), 0 0 0.5vw rgba(0, 0, 0, 0.1); /* Added shadow */
-  transition: transform 0.3s ease;
+.job-card-container {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow on all sides */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  width: 100%;
+  max-width: 350px;
+  min-width: 250px;
+  height: auto;
+  cursor: pointer;
+  margin-bottom: 20px;
+  position: relative; /* Add position relative */
+  overflow: hidden; /* Hide the overflow */
+}
+
+.job-card-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent); /* Add 3D effect */
+  z-index: -1; /* Push the pseudo-element behind */
+  transition: transform 0.3s ease; /* Add transition for 3D effect */
+}
+
+.job-card-container:hover::before {
+  transform: translate(-5px, -5px); /* Move the pseudo-element to create a 3D effect on hover */
+}
+
+.company-logo-container {
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+}
+
+.company-logo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.job-info-box {
+  display: flex;
+  align-items: center;
+}
+
+.job-info {
   display: flex;
   flex-direction: column;
 }
 
-.job-card:hover {
-  transform: translateY(-0.3vw);
-}
-
-.company-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5vw; /* Adjust spacing */
-}
-
-.company-logo {
-  margin-right: 1vw;
-}
-
-.company-logo img {
-  width: 8vw;
-  height: 8vw;
-  border-radius: 50%;
-}
-
-.company-details {
-  flex: 1;
-}
-
-.company-details h3 {
-  margin: 0;
-  color: #333;
-  font-size: 1.2vw;
-}
-
-.company-details p {
-  margin: 0.3vw 0;
-}
-
-.company-details .job-role {
+.company-name {
   font-weight: bold;
-  font-size: 1vw;
-}
-
-.company-details .location {
   color: #333;
-  font-size: 0.9vw;
+  margin-bottom: 8px;
 }
 
-.company-details .salary {
-  font-size: 0.8vw;
-  font-weight: bold;
+.job-role,
+.job-location {
+  color: #555;
 }
 
-.about-company {
-  margin-top: 1.5vw; /* Adjust spacing */
+.expected-salary-container {
+  margin-top: 8px;
 }
 
-.about-company h4 {
-  margin-bottom: 0.5vw; /* Adjust spacing */
-  color: #333; /* Dark black color */
-  font-size: 1.1vw;
-  font-weight: bold; /* Make the heading bold */
-}
-
-.about-company p {
-  margin: 0.3vw 0;
-  font-size: 0.9vw;
-  color: #333; /* Dark black color */
+.expected-salary {
+  color: #555;
 }
 
 .about-us {
-  font-size: 0.9vw;
-  color: #333; /* Dark black color */
+  margin-top: 12px;
 }
 
-.about-us::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1.5vw; /* Height of dimming lines effect */
-  background-image: linear-gradient(to bottom, rgba(249, 249, 249, 0), rgba(249, 249, 249, 1)); /* Dimming effect */
+.job-details {
+  margin-top: 12px;
+  text-align: justify;
 }
 
-.view-job-btn {
-  margin-top: 1vw; /* Adjust spacing */
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.5vw 1vw;
-  border-radius: 0.5vw;
-  cursor: pointer;
-  font-size: 0.9vw;
+.view-job-link-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
 }
 
-.job-link {
+.view-job-link {
   color: #007bff;
-  font-size: 0.9vw;
+}
+
+.view-job-link:hover {
   text-decoration: underline;
-  cursor: pointer;
+}
+
+.experience-container {
+  margin-top: 12px;
+}
+
+.min-experience,
+.exp-from-json {
+  color: #555;
+  margin-top: 8px;
+}
+
+.job-card-container:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Enhance shadow on hover */
+  transform: translateY(-5px); /* Move the card slightly upwards on hover */
+}
+
+@media screen and (max-width: 600px) {
+  .job-card-container {
+    max-width: calc(100% - 20px);
+    margin: 0 auto 20px;
+  }
+
+  .company-name {
+    font-size: 1.1rem;
+  }
+
+  .job-role,
+  .job-location {
+    font-size: 0.9rem;
+  }
+
+  .expected-salary {
+    font-size: 0.8rem;
+  }
+
+  .about-us {
+    margin-top: 10px;
+  }
+
+  .job-details {
+    font-size: 0.9rem;
+  }
 }

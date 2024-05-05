@@ -1,53 +1,110 @@
-import React, { useState } from "react";
+import React from "react";
+import { Box, CardMedia, Typography, Button } from "@mui/material";
+import { FlashOn, BlurOn } from "@mui/icons-material";
 import "./JobCard.css";
 
 const JobCard = ({ job }) => {
-  const { companyName, jobRole, location, logoUrl, minJdSalary, maxJdSalary, jdLink, jobDetailsFromCompany } = job;
-  const [showFullDetails, setShowFullDetails] = useState(false);
+  const {
+    logoUrl,
+    companyName,
+    jobRole,
+    location,
+    minJdSalary,
+    maxJdSalary,
+    jobDetailsFromCompany,
+    jdLink,
+    minExp,
+    maxExp,
+  } = job;
 
-  // Function to format salary with rupee symbol
-  const formatSalary = (minSalary, maxSalary) => {
-    return `Estimated Salary: ₹${minSalary} - ₹${maxSalary} LPA`;
-  };
+  // Format the salary range
+  const formattedSalaryRange = `₹${minJdSalary} - ${maxJdSalary} LPA`;
 
-  const handleViewJobClick = () => {
-    setShowFullDetails(true);
+  // Function to open the job link
+  const openJobLink = () => {
+    window.open(jdLink, "_blank");
   };
 
   return (
-    <div className="job-card">
-      <div className="company-info">
-        <div className="company-logo">
-          <img src={logoUrl} alt={companyName} />
+    <Box className="job-card-container">
+      <div className="job-info-box">
+        <div className="company-logo-container">
+          <CardMedia
+            component="img"
+            src={logoUrl}
+            alt="Company Logo"
+            className="company-logo"
+          />
         </div>
-        <div className="company-details">
-          <h3>{companyName}</h3>
-          <p className="job-role">{jobRole}</p>
-          <p className="location">{location}</p>
-          <p className="salary">{formatSalary(minJdSalary, maxJdSalary)}</p>
-          <div className="about-company">
-            <h4>About Company:</h4>
-            {!showFullDetails && (
-              <>
-                <p className="about-us">
-                  {jobDetailsFromCompany.length > 100
-                    ? jobDetailsFromCompany.substring(0, 100) + "..."
-                    : jobDetailsFromCompany}
-                </p>
-                <button className="view-job-btn" onClick={handleViewJobClick}>
-                  View Job
-                </button>
-              </>
-            )}
-            {showFullDetails && (
-              <a className="job-link" href={jdLink} target="_blank" rel="noopener noreferrer">
-                {jdLink}
-              </a>
-            )}
-          </div>
+
+        <div className="job-info">
+          <Typography variant="subtitle1" className="company-name">
+            {companyName}
+          </Typography>
+          <Typography variant="body2" className="job-role">
+            {jobRole}
+          </Typography>
+          <Typography variant="body2" className="job-location">
+            {location}
+          </Typography>
         </div>
       </div>
-    </div>
+      <div className="expected-salary-container">
+        <Typography variant="body2" className="expected-salary">
+          Estimated Salary: {formattedSalaryRange}
+        </Typography>
+      </div>
+      <div className="about-us">
+        <Typography variant="body2">
+          <strong>About Us:</strong>
+        </Typography>
+        <Typography variant="body2" className="job-details">
+          {jobDetailsFromCompany.substring(0, 500)}...{" "}
+
+        </Typography>
+        <div className="view-job-link-container">
+          <span className="view-job-link" onClick={openJobLink}>
+            View Job
+          </span>
+        </div>
+      </div>
+      <div className="experience-container">
+        <Typography variant="body2" className="min-experience">
+          Minimum Experience: {minExp} years
+        </Typography>
+      </div>
+      <div className="easy-apply-button-container">
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: "rgb(85, 239, 196)",
+            color: "#fff",
+            width: "100%",
+            textTransform: "none",
+            margin: "0.7rem 0rem",
+            padding: "0.7rem",
+          }}
+          startIcon={<FlashOn style={{ color: "yellow" }} />}
+        >
+          Easy Apply
+        </Button>
+      </div>
+      <div className="unlock-referral-button-container">
+        <Button
+          variant="contained"
+          style={{
+            backgroundColor: "rgb(73, 67, 218)",
+            color: "#fff",
+            width: "100%",
+            textTransform: "none",
+            padding: "0.7rem",
+          }}
+          startIcon={<BlurOn style={{ color: "#fff" }} />}
+        >
+          Unlock Referral
+        </Button>
+      </div>
+    </Box>
   );
 };
 
