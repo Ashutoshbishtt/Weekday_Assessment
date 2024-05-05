@@ -18,25 +18,33 @@ const JobCard = ({ job }) => {
   } = job;
 
   // Format the salary range
-  const formattedSalaryRange = `₹${minJdSalary} - ${maxJdSalary} LPA`;
+  const formattedSalaryRange =
+    minJdSalary && maxJdSalary
+      ? `₹${minJdSalary} - ${maxJdSalary} LPA`
+      : minJdSalary
+      ? `₹${minJdSalary} LPA`
+      : maxJdSalary
+      ? `₹${maxJdSalary} LPA`
+      : "";
 
   // Function to open the job link
   const openJobLink = () => {
-    window.open(jdLink, "_blank");
+    window.open(jdLink, "_self");
   };
 
   return (
     <Box className="job-card-container">
       <div className="job-info-box">
-        <div className="company-logo-container">
-          <CardMedia
-            component="img"
-            src={logoUrl}
-            alt="Company Logo"
-            className="company-logo"
-          />
-        </div>
-
+        {logoUrl && (
+          <div className="company-logo-container">
+            <CardMedia
+              component="img"
+              src={logoUrl}
+              alt="Company Logo"
+              className="company-logo"
+            />
+          </div>
+        )}
         <div className="job-info">
           <Typography variant="subtitle1" className="company-name">
             {companyName}
@@ -49,18 +57,19 @@ const JobCard = ({ job }) => {
           </Typography>
         </div>
       </div>
-      <div className="expected-salary-container">
-        <Typography variant="body2" className="expected-salary">
-          Estimated Salary: {formattedSalaryRange}
-        </Typography>
-      </div>
+      {formattedSalaryRange && (
+        <div className="expected-salary-container">
+          <Typography variant="body2" className="expected-salary">
+            Estimated Salary: {formattedSalaryRange}
+          </Typography>
+        </div>
+      )}
       <div className="about-us">
         <Typography variant="body2">
           <strong>About Us:</strong>
         </Typography>
         <Typography variant="body2" className="job-details">
-          {jobDetailsFromCompany.substring(0, 500)}...{" "}
-
+          {jobDetailsFromCompany && jobDetailsFromCompany.substring(0, 500)}...{" "}
         </Typography>
         <div className="view-job-link-container">
           <span className="view-job-link" onClick={openJobLink}>
@@ -69,8 +78,19 @@ const JobCard = ({ job }) => {
         </div>
       </div>
       <div className="experience-container">
-        <Typography variant="body2" className="min-experience">
-          Minimum Experience: {minExp} years
+        <Typography
+          variant="body2"
+          className="min-experience"
+          style={{ visibility: minExp == null ? "hidden" : "visible" }}
+        >
+          Minimum Experience:
+        </Typography>
+        <Typography
+          variant="body2"
+          className="min-experience"
+          style={{ visibility: minExp == null ? "hidden" : "visible" }}
+        >
+          {minExp} years
         </Typography>
       </div>
       <div className="easy-apply-button-container">

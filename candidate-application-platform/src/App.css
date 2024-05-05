@@ -2,6 +2,7 @@
 
 .app {
   margin-top: 20px;
+  
 }
 
 .job-list-container {
@@ -9,12 +10,12 @@
   flex-wrap: wrap;
   margin-top: 3rem;
   flex-direction: column;
-    width: 100%; /* Set the width to 100% */
-    max-width: 1200px; /* Set the maximum width */
-    min-width: 300px; /* Set the minimum width */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 20px; /* Add padding for better spacing */
-  
+  width: 100%; /* Set the width to 100% */
+  max-width: 1200px; /* Set the maximum width */
+  min-width: 300px; /* Set the minimum width */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding for better spacing */
+  margin-top: 4rem;
 }
 
 .job-box {
