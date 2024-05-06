@@ -33,12 +33,10 @@ const App = () => {
       if (
         filters.companyName &&
         filters.companyName !== "" &&
-        !job.companyName
-          .toLowerCase()
-          .includes(filters.companyName.toLowerCase())
+        !job.companyName.toLowerCase().includes(filters.companyName.toLowerCase())
       )
         return false;
-
+  
       if (
         filters.jobRole &&
         filters.jobRole.length > 0 &&
@@ -47,22 +45,20 @@ const App = () => {
         )
       )
         return false;
-
+  
       if (
         filters.experience !== null &&
         !checkExperience(job.minExp, job.maxExp, filters.experience)
       )
         return false;
-
+  
       if (
         filters.remote &&
         filters.remote.length > 0 &&
-        !filters.remote.some(location =>
-          job.location.toLowerCase().includes(location.toLowerCase())
-        )
+        !filters.remote.some(option => job.location.toLowerCase().includes(option.toLowerCase()))
       )
         return false;
-
+  
       if (
         filters.techStack &&
         filters.techStack.length > 0 &&
@@ -71,19 +67,20 @@ const App = () => {
         )
       )
         return false;
-
+  
       if (
         filters.minBasePay !== null &&
         (job.minJdSalary == null ||
           job.minJdSalary < parseInt(filters.minBasePay.replace("L", "")))
       )
         return false;
-
+  
       return true;
     });
-
+  
     setJobs(filteredJobs);
   };
+  
 
   const checkExperience = (minExp, maxExp, selectedExp) => {
     if (minExp == null || maxExp == null) return false;
