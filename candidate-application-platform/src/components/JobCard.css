@@ -18,6 +18,16 @@
   margin-left: 3px;
 }
 
+.posted-date-content {
+  display: flex;
+  align-items: center;
+  width: 10rem;
+  border: 1px solid #5555;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+
 .job-card-container::before {
   content: '';
   position: absolute;

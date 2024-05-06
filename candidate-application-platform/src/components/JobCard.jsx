@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, CardMedia, Typography, Button } from "@mui/material";
-import { FlashOn, BlurOn } from "@mui/icons-material";
+import { FlashOn, BlurOn, AccessTime } from "@mui/icons-material";
 import "./JobCard.css";
 
 const JobCard = ({ job }) => {
@@ -15,9 +15,9 @@ const JobCard = ({ job }) => {
     jdLink,
     minExp,
     maxExp,
+    postedDate,
   } = job;
 
-  // Format the salary range
   const formattedSalaryRange =
     minJdSalary && maxJdSalary
       ? `₹${minJdSalary} - ${maxJdSalary} LPA`
@@ -27,13 +27,20 @@ const JobCard = ({ job }) => {
       ? `₹${maxJdSalary} LPA`
       : "";
 
-  // Function to open the job link
   const openJobLink = () => {
     window.open(jdLink, "_self");
   };
 
   return (
     <Box className="job-card-container">
+      <div className="posted-date-container">
+        <div className="posted-date-content">
+          <AccessTime fontSize="small" />
+          <Typography variant="body2" className="posted-date">
+            Posted 10 days ago
+          </Typography>
+        </div>
+      </div>
       <div className="job-info-box">
         {logoUrl && (
           <div className="company-logo-container">
