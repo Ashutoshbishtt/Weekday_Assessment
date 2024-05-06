@@ -13,13 +13,12 @@ const App = () => {
   const [filters, setFilters] = useState({
     jobRole: [],
     numEmployees: [],
-    experience: [],
+    experience: null,
     remote: [],
     techStack: [],
-    minBasePay: [],
+    minBasePay: null,
   });
   const [page, setPage] = useState(1);
-  console.log(allJobs)
 
   useEffect(() => {
     dispatch(fetchJobs(10, (page - 1) * 10));
@@ -32,53 +31,64 @@ const App = () => {
   const applyFilters = () => {
     let filteredJobs = allJobs.filter(job => {
       if (
+        filters.companyName &&
+        filters.companyName !== "" &&
+        !job.companyName
+          .toLowerCase()
+          .includes(filters.companyName.toLowerCase())
+      )
+        return false;
+
+      if (
+        filters.jobRole &&
         filters.jobRole.length > 0 &&
         !filters.jobRole.some(
           role => job.jobRole.toLowerCase() === role.toLowerCase()
         )
       )
         return false;
+
       if (
-        filters.numEmployees.length > 0 &&
-        !filters.numEmployees.includes(
-          job.numEmployees ? job.numEmployees.toString() : ""
-        )
+        filters.experience !== null &&
+        !checkExperience(job.minExp, job.maxExp, filters.experience)
       )
         return false;
+
       if (
-        filters.experience.length > 0 &&
-        !filters.experience.every(exp => {
-          const [minExp, maxExp] = exp.split("-");
-          return (
-            (!minExp ||
-              (job.minExp !== null && job.minExp >= parseInt(minExp))) &&
-            (!maxExp || (job.maxExp !== null && job.maxExp <= parseInt(maxExp)))
-          );
-        })
-      )
-        return false;
-      if (
+        filters.remote &&
         filters.remote.length > 0 &&
         !filters.remote.some(location =>
           job.location.toLowerCase().includes(location.toLowerCase())
         )
       )
         return false;
+
       if (
+        filters.techStack &&
         filters.techStack.length > 0 &&
-        !filters.techStack.every(stack =>
+        !filters.techStack.some(stack =>
           job.jobDetailsFromCompany.toLowerCase().includes(stack.toLowerCase())
         )
       )
         return false;
-      if (filters.minBasePay.length > 0) {
-        const minSalary = parseInt(filters.minBasePay[0].replace("L", ""));
-        if (job.minJdSalary === null || job.minJdSalary < minSalary)
-          return false;
-      }
+
+      if (
+        filters.minBasePay !== null &&
+        (job.minJdSalary == null ||
+          job.minJdSalary < parseInt(filters.minBasePay.replace("L", "")))
+      )
+        return false;
+
       return true;
     });
+
     setJobs(filteredJobs);
+  };
+
+  const checkExperience = (minExp, maxExp, selectedExp) => {
+    if (minExp == null || maxExp == null) return false;
+
+    return minExp <= parseInt(selectedExp) && maxExp >= parseInt(selectedExp);
   };
 
   const handleFilterChange = (filterName, value) => {

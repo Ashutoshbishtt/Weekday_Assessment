@@ -8,13 +8,14 @@
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow on all sides */
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   width: 100%;
-  max-width: 324px;
-  min-width: 250px;
+  max-width: 21vw;
+  min-width: 220px;
   height: auto;
   cursor: pointer;
   margin-bottom: 20px;
   position: relative; /* Add position relative */
   overflow: hidden; /* Hide the overflow */
+  margin-left: 3px;
 }
 
 .job-card-container::before {
@@ -37,6 +38,7 @@
   width: 50px;
   height: 50px;
   margin-right: 20px;
+
 }
 
 .company-logo {

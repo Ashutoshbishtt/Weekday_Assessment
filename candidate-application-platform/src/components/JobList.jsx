@@ -7,7 +7,7 @@ const JobList = ({ jobs }) => {
   return (
     <div className="job-list">
       {Array.isArray(jobs) &&
-        jobs.map(job => <JobCard key={job.id} job={job} />)}
+        jobs.map(job => <JobCard key={job.jdUid} job={job} />)}
     </div>
   );
 };

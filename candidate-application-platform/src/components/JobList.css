@@ -4,9 +4,8 @@
 }
 
 .job-list .job-card {
-  width: calc(33.33% - 1000px); /* Adjust the width as needed */
+  width: calc(24.33% - 10px); /* Adjust the width as needed */
   margin: 10px; /* Margin from top and bottom */
-  margin-right: 10px; /* Margin from right */
   margin-left: 10px; /* Margin from left */
   box-sizing: border-box;
 }

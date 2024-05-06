@@ -1,6 +1,7 @@
 import React from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import Chip from "@material-ui/core/Chip";
 import "./Filter.css";
 
 const Filters = ({ filters, setFilters }) => {
@@ -11,24 +12,33 @@ const Filters = ({ filters, setFilters }) => {
     }));
   };
 
-  const renderTags = (value, getTagProps) =>
+  const renderTags = (value, filterName) =>
     value.map((option, index) => (
-      <div
-        {...getTagProps({ index })}
+      <Chip
+        label={option}
         key={index}
-        style={{ display: "inline-flex", alignItems: "center" }}
-      >
-        <span>{option}</span>
-      </div>
+        onDelete={() => {
+          const newValue = [...value];
+          newValue.splice(index, 1);
+          handleFilterChange(filterName, newValue);
+        }}
+      />
     ));
 
   return (
     <div className="filter-container">
       <div className="filter-item">
+        <TextField
+          label="Search Company Name"
+          variant="outlined"
+          className="filter-input"
+          onChange={e => handleFilterChange("companyName", e.target.value)}
+        />
+      </div>
+      <div className="filter-item">
         <Autocomplete
-          multiple
           options={["Remote", "Hybrid", "Inoffice"]}
-          renderTags={renderTags}
+          renderTags={value => renderTags(value, "remote")}
           renderInput={params => (
             <TextField
               {...params}
@@ -43,9 +53,8 @@ const Filters = ({ filters, setFilters }) => {
       </div>
       <div className="filter-item">
         <Autocomplete
-          multiple
           options={["Frontend", "Backend", "Full Stack", "iOS", "Android"]}
-          renderTags={renderTags}
+          renderTags={value => renderTags(value, "jobRole")}
           renderInput={params => (
             <TextField
               {...params}
@@ -60,60 +69,6 @@ const Filters = ({ filters, setFilters }) => {
       </div>
       <div className="filter-item">
         <Autocomplete
-          multiple
-          options={["1-50", "51-100", "101-500", "501-1000", "1000+"]}
-          renderTags={renderTags}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label="No. Of Employees"
-              variant="outlined"
-              className="filter-input"
-            />
-          )}
-          value={filters.numEmployees || []}
-          onChange={(e, newValue) =>
-            handleFilterChange("numEmployees", newValue)
-          }
-        />
-      </div>
-      <div className="filter-item">
-        <Autocomplete
-          multiple
-          options={["0-1", "1-3", "3-5", "5-8", "8-20"]}
-          renderTags={renderTags}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label="Experience"
-              variant="outlined"
-              className="filter-input"
-            />
-          )}
-          value={filters.experience || []}
-          onChange={(e, newValue) => handleFilterChange("experience", newValue)}
-        />
-      </div>
-      <div className="filter-item">
-        <Autocomplete
-          multiple
-          options={["React", "Angular", "Vue", "Node.js", "Express.js"]}
-          renderTags={renderTags}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label="Tech Stack"
-              variant="outlined"
-              className="filter-input"
-            />
-          )}
-          value={filters.techStack || []}
-          onChange={(e, newValue) => handleFilterChange("techStack", newValue)}
-        />
-      </div>
-      <div className="filter-item">
-        <Autocomplete
-          multiple
           options={[
             "0L",
             "10L",
@@ -127,7 +82,7 @@ const Filters = ({ filters, setFilters }) => {
             "90L",
             "100L+",
           ]}
-          renderTags={renderTags}
+          renderTags={value => renderTags(value, "minBasePay")}
           renderInput={params => (
             <TextField
               {...params}
@@ -136,8 +91,42 @@ const Filters = ({ filters, setFilters }) => {
               className="filter-input"
             />
           )}
-          value={filters.minBasePay || []}
+          value={filters.minBasePay || null}
           onChange={(e, newValue) => handleFilterChange("minBasePay", newValue)}
+          autoComplete="off"
+        />
+      </div>
+      <div className="filter-item">
+        <Autocomplete
+          options={["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]}
+          renderTags={value => renderTags(value, "experience")}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Experience"
+              variant="outlined"
+              className="filter-input"
+            />
+          )}
+          value={filters.experience || null}
+          onChange={(e, newValue) => handleFilterChange("experience", newValue)}
+          autoComplete="off"
+        />
+      </div>
+      <div className="filter-item">
+        <Autocomplete
+          options={["React", "Angular", "Vue", "Node.js", "Express.js"]}
+          renderTags={value => renderTags(value, "techStack")}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Tech Stack"
+              variant="outlined"
+              className="filter-input"
+            />
+          )}
+          value={filters.techStack || []}
+          onChange={(e, newValue) => handleFilterChange("techStack", newValue)}
         />
       </div>
     </div>
