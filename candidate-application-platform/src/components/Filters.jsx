@@ -49,6 +49,7 @@ const Filters = ({ filters, setFilters }) => {
           )}
           value={filters.remote || []}
           onChange={(e, newValue) => handleFilterChange("remote", newValue)}
+          multiple // Enable multi-select
         />
       </div>
       <div className="filter-item">
@@ -65,6 +66,24 @@ const Filters = ({ filters, setFilters }) => {
           )}
           value={filters.jobRole || []}
           onChange={(e, newValue) => handleFilterChange("jobRole", newValue)}
+          multiple // Enable multi-select
+        />
+      </div>
+      <div className="filter-item">
+        <Autocomplete
+          options={["React", "Angular", "Vue", "Node.js", "Express.js"]}
+          renderTags={value => renderTags(value, "techStack")}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Tech Stack"
+              variant="outlined"
+              className="filter-input"
+            />
+          )}
+          value={filters.techStack || []}
+          onChange={(e, newValue) => handleFilterChange("techStack", newValue)}
+          multiple // Enable multi-select
         />
       </div>
       <div className="filter-item">
@@ -111,22 +130,6 @@ const Filters = ({ filters, setFilters }) => {
           value={filters.experience || null}
           onChange={(e, newValue) => handleFilterChange("experience", newValue)}
           autoComplete="off"
-        />
-      </div>
-      <div className="filter-item">
-        <Autocomplete
-          options={["React", "Angular", "Vue", "Node.js", "Express.js"]}
-          renderTags={value => renderTags(value, "techStack")}
-          renderInput={params => (
-            <TextField
-              {...params}
-              label="Tech Stack"
-              variant="outlined"
-              className="filter-input"
-            />
-          )}
-          value={filters.techStack || []}
-          onChange={(e, newValue) => handleFilterChange("techStack", newValue)}
         />
       </div>
     </div>
