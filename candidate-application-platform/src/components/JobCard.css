@@ -8,7 +8,7 @@
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow on all sides */
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   width: 100%;
-  max-width: 21vw;
+  max-width: 22.5vw;
   min-width: 220px;
   height: auto;
   cursor: pointer;
